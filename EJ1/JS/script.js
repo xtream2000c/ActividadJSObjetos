@@ -10,7 +10,7 @@ function inicializar() {
     // imprimeCodigoPostal // Devuelve el código postal del edificio.
     // imprimePlantas // Recorrerá el edificio e imprimirá todos los propietarios de cada puerta.
     edificio[0].agregarPlantasYPuertas(2,3);
-    edificio[1].agregarPlantasYPuertas(1,7);
+    edificio[1].agregarPlantasYPuertas(1,4);
     
     imprimePlantas();
     
@@ -33,13 +33,14 @@ function imprimirEdificios(){
 }
 
 function imprimePlantas(){
-    console.log(edificio[0].numplantas);
+    
     for (let k = 0; k < edificio.length; k++) {
+        document.write("<h2><br>Edificio de la calle: " + edificio[k].calle + "<br></h2>");
         for (let i = 0; i < edificio[k].numplantas; i++) {
-            for (let j = 0; j < edificio[k].puertas; j++) {
-                
+            for (let j = 0; j < edificio[k].plantasYpuertas[i].length; j++) {
+                console.log("Aqui llego");
                 document.write("En la planta: "+ i + " Puerta "+ j + " vive: "+ edificio[k].plantasYpuertas[i][j]+"<br>");
-
+                
             }   
             
         }
@@ -56,20 +57,20 @@ function edificios(calle, numero, cod_postal){
     this.numplantas = 0;
     this.puertas = 0;
     
-    this.plantas=[];
-    this.puerta=[];
-    this.plantasYpuertas = new Array(plantas,puerta);
+    this.plantas;
+    this.puerta;
+    
     this.agregarPlantasYPuertas = function (numplantas, puertas){
-        this.numplantas = numplantas;
-        this.puertas = puertas;
-
-        for (let i = 0; i < numplantas; i++) {
+        this.plantasYpuertas = new Array(plantas,puerta);
+        for (let i = this.numplantas; i < numplantas; i++) {
             for (let j = 0; j < puertas; j++) {
 
-                this.plantasYpuertas[i][j] = "vacio"
+                this.plantasYpuertas[i][j] = "vacio";
 
             }
         }
+        this.puertas = puertas;
+        this.numplantas += numplantas;
         
     }
 
