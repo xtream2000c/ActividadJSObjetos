@@ -9,9 +9,10 @@ function inicializar() {
     // imprimeNumero // Devuelve el número del edificio.
     // imprimeCodigoPostal // Devuelve el código postal del edificio.
     // imprimePlantas // Recorrerá el edificio e imprimirá todos los propietarios de cada puerta.
-    edificio[0].agregarPlantasYPuertas(2,3);
-    edificio[1].agregarPlantasYPuertas(1,4);
-    
+    edificio[0].agregarPlantasYPuertas(3,3);
+    edificio[1].agregarPlantasYPuertas(1,5);
+    edificio[1].agregarPlantasYPuertas(1,2);
+    edificio[1].agregarPlantasYPuertas(1,7);
     imprimePlantas();
     
 }
@@ -19,7 +20,7 @@ function inicializar() {
 function crearEdificios(){
     
     edificio[0] = new edificios("Garcia Prieto", "58", "15706");
-    edificio[1]= new edificios("Camino Caneiro", "29", "32004");
+    edificio[1] = new edificios("Camino Caneiro", "29", "32004");
     edificio[2] = new edificios("San Clemente", "s/n", "15705");
 
 }
@@ -37,9 +38,9 @@ function imprimePlantas(){
     for (let k = 0; k < edificio.length; k++) {
         document.write("<h2><br>Edificio de la calle: " + edificio[k].calle + "<br></h2>");
         for (let i = 0; i < edificio[k].numplantas; i++) {
-            for (let j = 0; j < edificio[k].plantasYpuertas[i].length; j++) {
-                console.log("Aqui llego");
-                document.write("En la planta: "+ i + " Puerta "+ j + " vive: "+ edificio[k].plantasYpuertas[i][j]+"<br>");
+            for (let j = 0; j < edificio[k].plantas[i].length; j++) {
+                console.log("Aqui llego" + k);
+                document.write("En la planta: "+ i + " Puerta "+ j + " vive: "+ edificio[k].plantas[i][j]+"<br>");
                 
             }   
             
@@ -56,20 +57,24 @@ function edificios(calle, numero, cod_postal){
     this.cod_postal = cod_postal;
     this.numplantas = 0;
     this.puertas = 0;
-    
-    this.plantas;
-    this.puerta;
-    
+    this.plantas=[];
+    this.puerta=[];
+
     this.agregarPlantasYPuertas = function (numplantas, puertas){
-        this.plantasYpuertas = new Array(plantas,puerta);
-        for (let i = this.numplantas; i < numplantas; i++) {
-            for (let j = 0; j < puertas; j++) {
-
-                this.plantasYpuertas[i][j] = "vacio";
-
-            }
-        }
+        
+        let nuevasPlantas = this.numplantas + numplantas;
+        console.log("Total de planta "+nuevasPlantas);
         this.puertas = puertas;
+        for (let i = this.numplantas; i < nuevasPlantas ; i++) {
+            this.puerta=[]
+            for (let j = 0; j < this.puertas; j++) {
+                console.log("Planta en el for" + i + j);
+                this.puerta[j] = "vacio" + i + j;
+                
+            }
+            this.plantas.push(this.puerta);
+        }
+        
         this.numplantas += numplantas;
         
     }
