@@ -1,18 +1,18 @@
 function inicializar() {
 
     edificio=[];
+    plantas=[];
+    puerta=[];
     crearEdificios();
     imprimirEdificios();
-    // agregarPlantasYPuertas(numplantas, puertas) // Se le pasa el número de plantas que queremos crear en el piso y el número de puertas por planta. Cada vez que se llame a este método, añadirá el número de plantas y puertas indicadas en los parámetros, a las que ya están creadas en el edificio.
-    // modificarNumero(numero) // Se le pasa el nuevo número del edificio para que lo actualice.
-    // modificarCalle(calle) // Se le pasa el nuevo nombre de la calle para que lo actualice.
-    // modificarCodigoPostal(codigo) // Se le pasa el nuevo número de código postal del edificio.
     // imprimeCalle // Devuelve el nombre de la calle del edificio.
     // imprimeNumero // Devuelve el número del edificio.
     // imprimeCodigoPostal // Devuelve el código postal del edificio.
-    // agregarPropietario(nombre,planta,puerta) // Se le pasa un nombre de propietario, un número de planta y un número de puerta y lo asignará como propietario de ese piso.
     // imprimePlantas // Recorrerá el edificio e imprimirá todos los propietarios de cada puerta.
-
+    edificio[0].agregarPlantasYPuertas(2,3);
+    edificio[1].agregarPlantasYPuertas(1,7);
+    
+    imprimePlantas();
     
 }
 
@@ -32,10 +32,61 @@ function imprimirEdificios(){
     }
 }
 
+function imprimePlantas(){
+    console.log(edificio[0].numplantas);
+    for (let k = 0; k < edificio.length; k++) {
+        for (let i = 0; i < edificio[k].numplantas; i++) {
+            for (let j = 0; j < edificio[k].puertas; j++) {
+                
+                document.write("En la planta: "+ i + " Puerta "+ j + " vive: "+ edificio[k].plantasYpuertas[i][j]+"<br>");
+
+            }   
+            
+        }
+    }
+
+
+}
+
 function edificios(calle, numero, cod_postal){
 
     this.calle = calle;
     this.numero = numero;
     this.cod_postal = cod_postal;
+    this.numplantas = 0;
+    this.puertas = 0;
+    
+    this.plantas=[];
+    this.puerta=[];
+    this.plantasYpuertas = new Array(plantas,puerta);
+    this.agregarPlantasYPuertas = function (numplantas, puertas){
+        this.numplantas = numplantas;
+        this.puertas = puertas;
+
+        for (let i = 0; i < numplantas; i++) {
+            for (let j = 0; j < puertas; j++) {
+
+                this.plantasYpuertas[i][j] = "vacio"
+
+            }
+        }
+        
+    }
+
+    this.modificarNumero = function (numero){
+        this.numero = numero;
+    }
+    this.modificarCalle = function (calle){
+        this.calle = calle;
+    }
+    this.modificarCodigoPostal = function (codigo){
+        this.cod_postal = cod_postal;
+    }
+    
+    this.agregarPropietario = function (nombre,planta,puerta) {
+        
+    }
 
 }
+
+
