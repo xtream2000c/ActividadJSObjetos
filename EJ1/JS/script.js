@@ -143,5 +143,3 @@ function edificios(calle, numero, cod_postal){
     }
 
 }
-
-
