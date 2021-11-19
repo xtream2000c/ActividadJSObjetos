@@ -9,10 +9,14 @@ function inicializar() {
     // imprimeNumero // Devuelve el número del edificio.
     // imprimeCodigoPostal // Devuelve el código postal del edificio.
     // imprimePlantas // Recorrerá el edificio e imprimirá todos los propietarios de cada puerta.
-    edificio[0].agregarPlantasYPuertas(3,3);
-    edificio[1].agregarPlantasYPuertas(1,5);
-    edificio[1].agregarPlantasYPuertas(1,2);
-    edificio[1].agregarPlantasYPuertas(1,7);
+    edificio[0].agregarPlantasYPuertas(2,3);
+    edificio[0].agregarPlantasYPuertas(1,3);
+    edificio[1].agregarPlantasYPuertas(2,3);
+    edificio[1].agregarPlantasYPuertas(1,4);
+    edificio[1].agregarPlantasYPuertas(2,2);
+    edificio[1].agregarPlantasYPuertas(4,1);
+    agregarPropietarios();
+    
     imprimePlantas();
     
 }
@@ -23,6 +27,10 @@ function crearEdificios(){
     edificio[1] = new edificios("Camino Caneiro", "29", "32004");
     edificio[2] = new edificios("San Clemente", "s/n", "15705");
 
+}
+
+function agregarPropietarios(){
+    edificio[0].agregarPropietario('Carlos Maroto', 1, 2);
 }
 
 function imprimirEdificios(){
@@ -46,8 +54,6 @@ function imprimePlantas(){
             
         }
     }
-
-
 }
 
 function edificios(calle, numero, cod_postal){
@@ -56,26 +62,47 @@ function edificios(calle, numero, cod_postal){
     this.numero = numero;
     this.cod_postal = cod_postal;
     this.numplantas = 0;
-    this.puertas = 0;
+    this.puertas = 1;
     this.plantas=[];
     this.puerta=[];
 
     this.agregarPlantasYPuertas = function (numplantas, puertas){
-        
-        let nuevasPlantas = this.numplantas + numplantas;
-        console.log("Total de planta "+nuevasPlantas);
-        this.puertas = puertas;
-        for (let i = this.numplantas; i < nuevasPlantas ; i++) {
-            this.puerta=[]
-            for (let j = 0; j < this.puertas; j++) {
-                console.log("Planta en el for" + i + j);
-                this.puerta[j] = "vacio" + i + j;
-                
+        if (numplantas > 0) {
+            if(puertas > 0){
+                let nuevasPlantas = this.numplantas + numplantas;
+                console.log("Total de planta "+nuevasPlantas);
+                this.puertas = puertas;
+                for (let i = this.numplantas; i < nuevasPlantas ; i++) {
+                    this.puerta=[]
+                    for (let j = 0; j < this.puertas; j++) {
+                        console.log("Planta en el for" + i + j);
+                        this.puerta[j] = "vacio" + i + j;
+                        
+                    }
+                    this.plantas.push(this.puerta);
+                }
+                this.numplantas += numplantas;
             }
-            this.plantas.push(this.puerta);
+            else{
+                alert("No puede haber un numero de puertas negativo. Se usaran el mismo numero de puertas que la ultima vez");
+    
+                let nuevasPlantas = this.numplantas + numplantas;
+                console.log("Total de planta "+nuevasPlantas);
+                for (let i = this.numplantas; i < nuevasPlantas ; i++) {
+                    this.puerta=[]
+                    for (let j = 0; j < this.puertas; j++) {
+                        console.log("Planta en el for" + i + j);
+                        this.puerta[j] = "vacio" + i + j;
+                        
+                    }
+                    this.plantas.push(this.puerta);
+                }
+                
+                this.numplantas += numplantas;
+            }  
+        }else{
+            alert('No puede haber plantas negativas');
         }
-        
-        this.numplantas += numplantas;
         
     }
 
@@ -89,8 +116,12 @@ function edificios(calle, numero, cod_postal){
         this.cod_postal = cod_postal;
     }
     
-    this.agregarPropietario = function (nombre,planta,puerta) {
-        
+    this.agregarPropietario = function (nombre,planta,puertaDePlanta) {
+        if(this.plantas[planta][puertaDePlanta]){
+            this.plantas[planta][puertaDePlanta] = nombre;
+        }else{
+            alert("La convinacion de puerta y planta no existe.");
+        }
     }
 
 }
